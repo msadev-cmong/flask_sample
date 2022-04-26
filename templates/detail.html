@@ -7,7 +7,7 @@
     <h2 class="chart-name">{{ data[1] }}소방본부 구급사고별 이송환자수</h2>
     <div class="description">{{ data[1] }}소방본부의 구급 사고의 종류별 이송환자수를 확인 할 수 있습니다.</div>
 </div>
-{% if not data[1] == "경기": %}
+{% if result: %}
 <div class="chart-box chart-box-detail">
     <canvas id="myChart"></canvas>
 </div>
@@ -19,7 +19,7 @@
 
 
 {% block footer %}
-{% if not data[1] == "경기": %}
+{% if result: %}
 <script>
 // Change default options for ALL charts
 Chart.defaults.set('plugins.datalabels', {
@@ -49,9 +49,15 @@ const data = {
     }]
 };
 
+let data_total  = 0;
+for (var idx in data.datasets[0].data) {
+    data_total += data.datasets[0].data[idx];
+}
+
 const config = {
     type: 'pie',
     data: data,
+    plugins: [ChartDataLabels],
     options: {
             indexAxis: 'y',
         // Elements options apply to all of the options unless overridden in a dataset
@@ -72,19 +78,31 @@ const config = {
             //     text: '{{ data[1] }}소방본부 응급이송환자 종류별 숫자'
             // },
             datalabels: {
-                color: '#36A2EB',
+                color: '#333',
                 display: function(context) {
                     return true
                 },
+                formatter:function(value, context){
+                    // data 에 넣은 데이타 순번. 물론 0 부터 시작
+                    var idx = context.dataIndex;
+                    var value = context.chart.data.datasets[0].data[idx];
+                    var per = value / data_total;
+                    // 여기선 첫번째 데이타엔 단위를 '원' 으로, 그 다음 데이타엔 'P' 를 사용
+                    // addComma() 는 여기서 기술하지 않았지만, 천단위 세팅. ChartJS 의 data 엔 숫자만 입력
+                    // return context.chart.data.labels[idx]+ ' : ' + value + '명 (' + Math.round(per*100) + '%)';
+                    return context.chart.data.labels[idx] + '(' + Math.round(per*100) + '%)';
+                },
+                anchor: 'center',
+                align: 'end',
+                offset: '15'
             }
         }
     },
 };
 </script>
 <script>
-
-
-const myChart = new Chart( document.getElementById('myChart'), config );
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart( ctx, config );
 </script>
 {% endif %}
 {% endblock %}

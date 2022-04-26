@@ -21,15 +21,17 @@ def show_detail(sido):
     if sido == '서울':
         sido = '소방'
 
+    result = True
     data = get_sub_data(sido)
     if data == None:
-        list_data = [0, '경기']
+        list_data = [0, sido]
+        result = False
     else:
         list_data = list(data)
         if list_data[1] == '소방':
             list_data[1] = '서울'
 
-    return render_template('detail.html', data=list_data)
+    return render_template('detail.html', result=result, data=list_data)
 
 def get_main_data():
     conn = pymysql.connect(host='localhost', port=3306, user='test', password='test', db='test_db', charset='utf8')
