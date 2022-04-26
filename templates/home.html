@@ -23,7 +23,7 @@ const labels = [
 const data = {
     labels: labels,
     datasets: [{
-        label: '응급환자 이송수',
+        label: '응급이송환자 수',
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(255, 99, 132)',
         data: [
@@ -65,19 +65,9 @@ const myChart = new Chart( document.getElementById('myChart'), config );
 // Chart Click Event
 document.getElementById("myChart").onclick = function(evt) {
     var activePoints = myChart.getElementsAtEventForMode(evt, 'point', myChart.options);
-    //var datasetIndex = activePoints[0].datasetIndex;
-
     var index = activePoints[0].index;
     var data = labels[index]
-
-    location.href = 'http://localhost:5000/sido/' + data;
-
-    // var label = C_Issue_analysis_interval.data.datasets[datasetIndex].label;
-    // var xlavel = C_Issue_analysis_interval.scales["x"]._labelItems[index].label;
-    // var value = C_Issue_analysis_interval.data.datasets[datasetIndex].data[index];
-
-    // alert(label + " : " + value + " : " + xlavel);
-    //Process
+    location.href = '/sido/' + data;
 };
 </script>
 {% endblock %}
