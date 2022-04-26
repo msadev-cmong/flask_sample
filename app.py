@@ -31,7 +31,7 @@ def sub_graph(sido):
     return render_template('sub.html',headquaters=labels, data=val[0])
 
 def get_main_data():
-    conn = pymysql.connect(host='34.125.48.192', port=3306, user='test', password='test', db='test_db', charset='utf8')
+    conn = pymysql.connect(host='mysql-svc', port=3306, user='test', password='test', db='test_db', charset='utf8')
     cursor = conn.cursor()
     sql_main =  'SELECT * FROM main'
     cursor.execute(sql_main)
@@ -42,7 +42,7 @@ def get_main_data():
     return data
 
 def get_sub_data(sido_data):
-    conn = pymysql.connect(host='34.125.48.192', port=3306, user='test', password='test', db='test_db', charset='utf8')
+    conn = pymysql.connect(host='mysql-svc', port=3306, user='test', password='test', db='test_db', charset='utf8')
     cursor = conn.cursor()
     sql_main =  f'SELECT * FROM sub_table where 시도 = "{sido_data}"'
     cursor.execute(sql_main)
