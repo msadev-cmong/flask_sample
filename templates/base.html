@@ -6,9 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <style>
     * {
         box-sizing: border-box;
+    }
+
+    a {
+        color: #000;
+        text-decoration: none;
+    }
+
+    a:hover, a:active {
+        text-decoration: none;
     }
 
     body {
@@ -42,8 +52,11 @@
 
     .footer {
         background: #333;
-        color: #ccc;
         font-size: 0.875rem;
+    }
+
+    .footer, .footer a {
+        color: #ccc;
     }
 
     .footer-nav {
@@ -80,6 +93,21 @@
     .chart-name {
         margin: 0 0 0.5rem 0;
     }
+
+    .chart-box-detail {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .empty-data {
+        padding: 5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #ccc;
+        color: #999;
+        border-radius: 0.25rem;
+    }
     </style>
     {% block head %}{% endblock %}
 </head>
@@ -91,7 +119,7 @@
             <div class="container">
                 <div class="nav-wrap">
                     <div class="logo">
-                        <img src="https://www.nfa.go.kr/nfa/common/images/common/logo.jpg" alt="">
+                        <a href="/"><img src="https://www.nfa.go.kr/nfa/common/images/common/logo.jpg" alt=""></a>
                     </div>
                     <div class="nav-items"></div>
                 </div>
@@ -109,20 +137,20 @@
                 <div class="developers">
                     <div class="column-name">Developers</div>
                     <ul>
-                        <li>박성훈</li>
-                        <li>구자윤</li>
-                        <li>김다운</li>
-                        <li>문경호</li>
-                        <li>창성실</li>
+                        <li><a href="https://github.com/sook22002" target="_blank">박성훈</a></li>
+                        <li><a href="https://github.com/KOOJAYOUN" target="_blank">구자윤</a></li>
+                        <li><a href="https://github.com/gimdaun" target="_blank">김다운</a></li>
+                        <li><a href="https://github.com/moonkyungho" target="_blank">문경호</a></li>
+                        <li><a href="https://github.com/cs-sil" target="_blank">창성실</a></li>
                     </ul>
                 </div>
 
                 <div class="link">
                     <div class="column-name">Link</div>
                     <ul>
-                        <li>멀티캠퍼스</li>
-                        <li>Amazon Web Services</li>
-                        <li>Google Cloud Platform</li>
+                        <li><a href="https://www.multicampus.com" target="_blank">멀티캠퍼스</a></li>
+                        <li><a href="https://aws.amazon.com" target="_blank">Amazon Web Services</a></li>
+                        <li><a href="https://cloud.google.com" target="_blank">Google Cloud Platform</a></li>
                     </ul>
                 </div>
             </nav>

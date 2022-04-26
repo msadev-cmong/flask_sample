@@ -1,15 +1,90 @@
 {% extends 'base.html' %}
 
-{% block title %}소방청 구급통계 서비스 데이터 - {{ data[1] }}{% endblock %}
+{% block title %}소방청 구급통계 서비스 데이터 - {{ data[1] }}소방본부{% endblock %}
 
 {% block content %}
 <div class="chart-info">
-    <h2 class="chart-name">소방본부별 응급이송환자 수</h2>
-    <div class="description">{{ data[1] }} 응급이송환자 수</div>
+    <h2 class="chart-name">{{ data[1] }}소방본부 구급사고별 이송환자수</h2>
+    <div class="description">{{ data[1] }}소방본부의 구급 사고의 종류별 이송환자수를 확인 할 수 있습니다.</div>
 </div>
+{% if not data[1] == "경기": %}
+<div class="chart-box chart-box-detail">
+    <canvas id="myChart"></canvas>
+</div>
+{% else: %}
+<div class="empty-data">{{ data[1] }}소방본부의 데이터를 찾을 수 없습니다.</div>
+{% endif %}
 
 {% endblock %}
 
-{% block footer %}
 
+{% block footer %}
+{% if not data[1] == "경기": %}
+<script>
+// Change default options for ALL charts
+Chart.defaults.set('plugins.datalabels', {
+  color: '#FE777B'
+});
+
+const labels = ["오토바이", "운전자", "기타 탈것", "자전거", "보행자", "동승자"];
+    
+const data = {
+    labels: labels,
+    datasets: [{
+        label: '응급환자 이송수',
+        // backgroundColor: 'rgb(255, 99, 132)',
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+        ],
+        data: [
+        {% for i in range(2,8): %}
+        {{ data[i] }},
+        {% endfor %}
+        ],
+    }]
+};
+
+const config = {
+    type: 'pie',
+    data: data,
+    options: {
+            indexAxis: 'y',
+        // Elements options apply to all of the options unless overridden in a dataset
+        // In this case, we are setting the border of each horizontal bar to be 2px wide
+        elements: {
+            bar: {
+                borderWidth: 2,
+            }
+        },
+        responsive: true,
+        plugins: {
+            // legend: {
+            //     // position: 'right',
+            //     position: 'top'
+            // },
+            // title: {
+            //     display: true,
+            //     text: '{{ data[1] }}소방본부 응급이송환자 종류별 숫자'
+            // },
+            datalabels: {
+                color: '#36A2EB',
+                display: function(context) {
+                    return true
+                },
+            }
+        }
+    },
+};
+</script>
+<script>
+
+
+const myChart = new Chart( document.getElementById('myChart'), config );
+</script>
+{% endif %}
 {% endblock %}

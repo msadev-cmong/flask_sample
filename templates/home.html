@@ -67,14 +67,10 @@ document.getElementById("myChart").onclick = function(evt) {
     var activePoints = myChart.getElementsAtEventForMode(evt, 'point', myChart.options);
     //var datasetIndex = activePoints[0].datasetIndex;
 
-    console.log(activePoints);
-
-
     var index = activePoints[0].index;
+    var data = labels[index]
 
-    console.log(data.datasets[0].data[index]);
-
-    location.href = 'http://localhost:5000/sido/' + index;
+    location.href = 'http://localhost:5000/sido/' + data;
 
     // var label = C_Issue_analysis_interval.data.datasets[datasetIndex].label;
     // var xlavel = C_Issue_analysis_interval.scales["x"]._labelItems[index].label;
