@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}소방청 구급통계 서비스 데이터 - {{ data[1] }}{% endblock %}
+
+{% block content %}
+<div class="chart-info">
+    <h2 class="chart-name">소방본부별 응급이송환자 수</h2>
+    <div class="description">{{ data[1] }} 응급이송환자 수</div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

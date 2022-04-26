@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+    }
+
+    .container {
+        max-width: 1080px;
+        margin: 0 auto;
+    }
+
+    .header {
+        border-bottom: 1px solid #dadada;
+        position: sticky;
+    }
+
+    .nav-wrap {
+        padding: 0.5rem 0;
+    }
+
+    .footer-nav-wrapper {
+        padding: 2rem 0;
+    }
+
+    .copyright-wrap {
+        padding: 1rem 0;
+        border-top: 1px solid #555;
+    }
+
+    .footer {
+        background: #333;
+        color: #ccc;
+        font-size: 0.875rem;
+    }
+
+    .footer-nav {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .footer-nav .column-name {
+        font-weight: bold;
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        color: #eee;
+    }
+
+    .footer-nav ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    .footer-nav li {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 0.25rem;
+    }
+
+    .main {
+        padding: 3rem 0;
+    }
+
+    .chart-info {
+        margin-bottom: 2rem;
+    }
+
+    .chart-name {
+        margin: 0 0 0.5rem 0;
+    }
+    </style>
+    {% block head %}{% endblock %}
+</head>
+<body>
+<div class="guard">
+    <header class="header">
+        <!-- <div class="container">Header</div> -->
+        <nav class="nav">
+            <div class="container">
+                <div class="nav-wrap">
+                    <div class="logo">
+                        <img src="https://www.nfa.go.kr/nfa/common/images/common/logo.jpg" alt="">
+                    </div>
+                    <div class="nav-items"></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <section class="content">
+        <main class="main">
+            <div class="container">{% block content %}{% endblock %}</div>
+        </main>
+    </section>
+    <footer class="footer">
+        <div class="container footer-nav-wrapper">
+            <nav class="footer-nav">
+                <div class="developers">
+                    <div class="column-name">Developers</div>
+                    <ul>
+                        <li>박성훈</li>
+                        <li>구자윤</li>
+                        <li>김다운</li>
+                        <li>문경호</li>
+                        <li>창성실</li>
+                    </ul>
+                </div>
+
+                <div class="link">
+                    <div class="column-name">Link</div>
+                    <ul>
+                        <li>멀티캠퍼스</li>
+                        <li>Amazon Web Services</li>
+                        <li>Google Cloud Platform</li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="copyright-wrap">
+            <div class="container">
+                <div class="copyright">Copyright 2022. Codemong all rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+</div>
+{% block footer %}{% endblock %}
+</body>
+</html>

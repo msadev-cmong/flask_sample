@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}소방청 구급통계 서비스 데이터{% endblock %}
+
+{% block content %}
+<div class="chart-info">
+    <h2 class="chart-name">소방본부별 응급이송환자 수</h2>
+    <div class="description">시도본부, 출동소방서, 출동안전센터, 접수년월 등 파라미터를 이용하여 소방청 구급통계 통계를 조회할 수 있는 서비스</div>
+</div>
+<div class="chart-box">
+    <canvas id="myChart"></canvas>
+</div>
+{% endblock %}
+
+{% block footer %}
+<script>
+const labels = [
+    {% for sido in headquaters: %}
+    '{{ sido }}',
+    {% endfor %}
+];
+  
+const data = {
+    labels: labels,
+    datasets: [{
+        label: '응급환자 이송수',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: [
+        {% for val in data: %}
+            {{ val }},
+        {% endfor %}
+        ],
+    }]
+};
+
+const config = {
+    type: 'bar',
+    data: data,
+    options: {
+            indexAxis: 'y',
+        // Elements options apply to all of the options unless overridden in a dataset
+        // In this case, we are setting the border of each horizontal bar to be 2px wide
+        elements: {
+            bar: {
+                borderWidth: 2,
+            }
+        },
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'right',
+            },
+            title: {
+                display: true,
+                text: '소방본부별 응급이송환자 수'
+            }
+        }
+    },
+};
+</script>
+<script>
+const myChart = new Chart( document.getElementById('myChart'), config );
+
+// Chart Click Event
+document.getElementById("myChart").onclick = function(evt) {
+    var activePoints = myChart.getElementsAtEventForMode(evt, 'point', myChart.options);
+    //var datasetIndex = activePoints[0].datasetIndex;
+
+    console.log(activePoints);
+
+
+    var index = activePoints[0].index;
+
+    console.log(data.datasets[0].data[index]);
+
+    location.href = 'http://localhost:5000/sido/' + index;
+
+    // var label = C_Issue_analysis_interval.data.datasets[datasetIndex].label;
+    // var xlavel = C_Issue_analysis_interval.scales["x"]._labelItems[index].label;
+    // var value = C_Issue_analysis_interval.data.datasets[datasetIndex].data[index];
+
+    // alert(label + " : " + value + " : " + xlavel);
+    //Process
+};
+</script>
+{% endblock %}
