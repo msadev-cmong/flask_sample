@@ -14,14 +14,6 @@
 <div class="chart-box">
     <canvas id="myChart"></canvas>
 </div>
-<div class="sido">
-  <script>
-    {% for sido in headquaters: %}
-      document.write("<li><a href=/" + '{{ sido }}' + "/>" + '{{ sido }}' + "</a></li>")
-    {% endfor %}
-
-  </script>
-</div>
 
 <script>
     const labels = [

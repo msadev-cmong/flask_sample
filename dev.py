@@ -15,10 +15,33 @@ def home():
 
     return render_template('test.html', headquaters=labels, data=value)
 
+@app.route('/<sido>/')
+def sub_graph(sido):
+    data = get_sub_data()
+
+    labels = ["오토바이", "운전자", "기타 탈것", "자전거", "보행자", "동승자"]
+    val = []
+    if sido == "서울":
+        for i in data:
+            val.append(i[2:])   
+    print(val)
+    return render_template('sub.html',headquaters=labels, data=val[0])
+
 def get_main_data():
-    conn = pymysql.connect(host='mysql.sil', port=3306, user='test', password='Test!234', db='test_db', charset='utf8')
+    conn = pymysql.connect(host='34.125.48.192', port=3306, user='test', password='test', db='test_db', charset='utf8')
     cursor = conn.cursor()
     sql_main =  'SELECT * FROM main'
+    cursor.execute(sql_main)
+    data = cursor
+
+    conn.commit()
+    conn.close()
+    return data
+
+def get_sub_data():
+    conn = pymysql.connect(host='34.125.48.192', port=3306, user='test', password='test', db='test_db', charset='utf8')
+    cursor = conn.cursor()
+    sql_main =  'SELECT * FROM sub_table'
     cursor.execute(sql_main)
     data = cursor
 
